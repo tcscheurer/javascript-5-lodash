@@ -446,9 +446,22 @@ let slowN = 30;
 // console.log(slowFibonnaci(slowN));
 // console.timeEnd('slowFibonnaci:' + slowN);
 
-let fastFibonnaci = 0;
+// Dynamic programming approach far more straight-forward with an array stucture
+let memos = [];
+let fastFibonnaci = n => {
+  if(n<2){
+    return n;
+  }
+  if(memos[n]){
+    return memos[n]
+  } else {
+    let result = fastFibonnaci(n-1) + fastFibonnaci(n-2);
+    memos[n] = result;
+    return result;
+  }
+};
 
-
+let fastN = 1000;
 // use memoize to create a fast fibonnaci.  Use the same
 // recursve structure that the slowFibonnaci is using, but have it be memoized
 // so that it'll remeber the previous times it's been called and increase the
