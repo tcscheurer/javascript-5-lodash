@@ -305,11 +305,18 @@ const myEmployees = [
   }
 ]
 
-const myEmployeesAddresses = 0// use pluck to get addresses here.
+const myEmployeesAddresses = _.map(myEmployees, (n)=>{
+  return n["address"];
+})
+
+// use pluck to get addresses here.
 
 // Now we want to use pluck to get an array of ages of the employees.
 
-const myEmployeesAges = 0 // use pluck to get ages here.
+const myEmployeesAges = _.map(myEmployees, (n)=>{
+  return n["age"];
+})
+// use pluck to get ages here.
 
 // union
 //  Union lets us take 2 arrays, and create a new array that only has 1 entry for
@@ -334,7 +341,8 @@ const breeFriendsEmails = ["red.power@ranger.com", "pikachu@gmail.com", "james@g
                             "batman@gothan.gov", "betty.white@gmail.com", "mr.giggles@gmail.com",
                             "mrs.giggles@gmail.com", "stacey@gmail.com", "brent@gmail.com", "dave@gmail.com"];
 
-const listToSendEmailsTo = 0; // Put lodash here to make list of the union of the two address.
+const listToSendEmailsTo = _.union(bobFriendsEmails, breeFriendsEmails);
+ // Put lodash here to make list of the union of the two address.
 
 
 // intersection
@@ -348,7 +356,8 @@ const listToSendEmailsTo = 0; // Put lodash here to make list of the union of th
 // Bob and Bree have decided that instead of inviting everyone they know to their
 // party.  They are instead only going to invite those people that they both know.
 
-const listOfSharedEmails = 0; // Use lodash to create the list that are in both lists
+const listOfSharedEmails = _.intersection(bobFriendsEmails, breeFriendsEmails); 
+// Use lodash to create the list that are in both lists
 
 // groupBy
 //  Group By lets us take an array of objects, and group then into groups based
@@ -391,15 +400,23 @@ const purchases = [{"month":"February","price":37.85},{"month":"January","price"
 {"month":"April","price":56.89},{"month":"February","price":86.19},{"month":"April","price":87.99},
 {"month":"January","price":14.25},{"month":"March","price":60.80},{"month":"February","price":23.65}]
 
-const purchasesByMonth = 0; // Use groupBy to group the purchases by the month that they were made.
+const purchasesByMonth = _.groupBy(purchases, "month");
+ // Use groupBy to group the purchases by the month that they were made.
 
 // Bonus Points
-const totalByMonth = 0; // Use the grouped purchasesByMonth and reduce to create a totalByMonth object.
+const totalByMonth = {}; 
+for(let month in purchasesByMonth){
+  totalByMonth[month] = _.reduce(purchasesByMonth[month], (accumulator,n)=>{
+    return accumulator + n;
+  })
+}
+ // Use the grouped purchasesByMonth and reduce to create a totalByMonth object.
 
 // memoize
 //  Memoize lets us take a function that takes a lot of time to run, and memoize
 //  results for that function, so if we run the function with the same parameters again,
 //  it will use the memoized results instead of making the calculation again.
+
 
 // Here we have a function that calculates the nth term of a fibbonaci sequence
 // 1 1 2 3 5 8 13 21 34 ...
@@ -429,9 +446,10 @@ let slowN = 30;
 // console.log(slowFibonnaci(slowN));
 // console.timeEnd('slowFibonnaci:' + slowN);
 
-let fastN = 1000;
+let fastFibonnaci = 0;
 
-let fastFibonnaci = 0; // use memoize to create a fast fibonnaci.  Use the same
+
+// use memoize to create a fast fibonnaci.  Use the same
 // recursve structure that the slowFibonnaci is using, but have it be memoized
 // so that it'll remeber the previous times it's been called and increase the
 
